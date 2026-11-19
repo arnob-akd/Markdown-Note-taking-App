@@ -1,8 +1,26 @@
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=wave&amp;color=auto&amp;height=160&amp;section=header" alt="Decorative wave header, its colour changes on every refresh" width="100%">
+</p>
+
+<p align="center">
+  <img src="assets/banner.svg" alt="Markdown Note-taking App: Markdown is typed into a note and appears rendered as formatted text" width="100%">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-11%2B-f89820?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 11+">
+  <img src="https://img.shields.io/badge/Gradle-build-02303A?style=for-the-badge&logo=gradle&logoColor=white" alt="Gradle">
+  <img src="https://img.shields.io/badge/REST-API-4cc9f0?style=for-the-badge" alt="REST API">
+  <img src="https://img.shields.io/badge/Markdown-commonmark--java-083fa1?style=for-the-badge&logo=markdown&logoColor=white" alt="commonmark-java">
+  <a href="https://roadmap.sh/projects/markdown-note-taking-app"><img src="https://img.shields.io/badge/roadmap.sh-Markdown%20Notes-6c5ce7?style=for-the-badge" alt="roadmap.sh project"></a>
+</p>
+
 # 📝 Markdown Note-taking App
 
 A lightweight backend, written in **Java**, for taking notes in Markdown — save a note as raw Markdown text, get back a list of everything you've saved, render any note as HTML, and check a note's grammar, all through a small REST API.
 
 **Project URL:** https://roadmap.sh/projects/markdown-note-taking-app
+
+<p align="center"><img src="assets/divider.svg" alt="" width="720"></p>
 
 ## 📖 About
 
@@ -28,11 +46,17 @@ This README documents how this implementation approaches each of those requireme
 | `/render/<noteId>` | `GET` | Render a saved note as HTML |
 | `/check-grammar/<noteId>` | `GET` | Check a saved note's grammar and spelling |
 
+<p align="center">
+  <img src="assets/api-flow.svg" alt="Animated diagram: each of the four endpoints lights up in turn while a request travels to the server, to the notes folder, commonmark or LanguageTool, and back" width="100%">
+</p>
+
 - 📄 Notes are saved as plain `.md` files on disk — easy to inspect, back up, or edit by hand
 - 🔄 Markdown → HTML rendering powered by the **commonmark-java** library (standard, spec-compliant output)
 - ✅ Grammar and spelling checks powered by the **LanguageTool** public API — catches things like subject-verb agreement, confused words, and missing apostrophes
 - 🕒 Simple, collision-free note IDs based on save timestamp
 - 🚦 Proper HTTP status codes throughout: `201` on save, `404` for an unknown note, `405` for an unsupported method, `502` if the grammar service can't be reached
+
+<p align="center"><img src="assets/divider.svg" alt="" width="720"></p>
 
 ## 🔁 How It Works
 
@@ -43,7 +67,18 @@ This README documents how this implementation approaches each of those requireme
 5. A `GET /check-grammar/<noteId>` request loads that note's file and forwards its text to the LanguageTool API, which returns a JSON report of grammar and spelling issues, which is passed straight back to you.
 6. Any request for a note ID that doesn't exist returns a `404`. Any unsupported method on an endpoint returns a `405`.
 
+<p align="center">
+  <img src="assets/grammar-check.svg" alt="Animated example: a sentence is typed, a scan sweeps across it, and three issues are underlined with the suggestions goes, every day and don't" width="100%">
+</p>
+
 ## 💻 Sample Run
+
+<p align="center">
+  <img src="assets/terminal-demo.svg" alt="Animated terminal that types out the sample run: start the server, save a note, list notes, render it and check its grammar" width="100%">
+</p>
+
+<details>
+<summary>Click to read the sample run as plain text</summary>
 
 ```
 $ gradle run
@@ -71,6 +106,8 @@ $ curl.exe http://localhost:8080/check-grammar/note-1790509445082
  ]}
 ```
 
+</details>
+
 ## 🛠 Tech stack
 
 - **Java 11+**
@@ -79,6 +116,8 @@ $ curl.exe http://localhost:8080/check-grammar/note-1790509445082
 - `java.net.http.HttpClient` — for calling the LanguageTool API
 - [`commonmark-java`](https://github.com/commonmark/commonmark-java) — for parsing and rendering Markdown to HTML
 - [LanguageTool API](https://languagetool.org/http-api/) — for grammar and spelling checks
+
+<p align="center"><img src="assets/divider.svg" alt="" width="720"></p>
 
 ## 🚀 Getting Started
 
@@ -148,9 +187,12 @@ curl.exe http://localhost:8080/check-grammar/<noteId>
 └── notes/                 # Created automatically at runtime — saved notes live here
 ```
 
+<p align="center"><img src="assets/divider.svg" alt="" width="720"></p>
+
 ## 🧠 What I Learned
 
-Building this project helped me understand:
+<details open>
+<summary>Building this project helped me understand:</summary>
 
 - Setting up and understanding a Gradle project — dependencies, plugins, and tasks — after having only used plain `javac`/`jar` before
 - Reading a raw request body from `HttpServer` and using it as arbitrary input (not just query parameters)
@@ -160,6 +202,12 @@ Building this project helped me understand:
 - A subtle but important habit: always closing the `OutputStream` after writing an `HttpExchange` response — otherwise the client never learns the response is complete and hangs waiting
 - Keeping multiple `createContext` route registrations as siblings in `main()`, rather than accidentally nesting one inside another's handler
 
+</details>
+
 ---
 
 Project reference: https://roadmap.sh/projects/markdown-note-taking-app
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=wave&amp;color=auto&amp;height=120&amp;section=footer" alt="Decorative wave footer, its colour changes on every refresh" width="100%">
+</p>
